@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/spring/activiti-context.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/activiti-modeler.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/activiti-rest.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/locale.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/spring-application.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/spring-datasource.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/spring-quartz-task.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/spring-shiro.xml</file>
+        </fileset>
+        <fileset id="fileset2" name="Spring Application Context (2)" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/com/jy/controller/system/device/DeviceLoginPushController.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/com/jy/controller/system/login/LoginController.java</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+</module>
