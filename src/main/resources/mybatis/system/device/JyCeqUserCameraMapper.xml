@@ -1,0 +1,863 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jy.mapper.system.device.JyCeqUserCameraMapper" >
+  <resultMap id="BaseResultMap" type="com.jy.entity.system.device.JyCeqUserCamera" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="user_id" property="user_id" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="login_Time" property="login_Time" jdbcType="TIMESTAMP" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="is_enabled" property="is_enabled" jdbcType="INTEGER" />
+    <result column="locked_Time" property="locked_Time" jdbcType="TIMESTAMP" />
+    <result column="login_failure_count" property="login_failure_count" jdbcType="INTEGER" />
+    <result column="login_ip" property="login_ip" jdbcType="VARCHAR" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="safe_key_value" property="safe_key_value" jdbcType="VARCHAR" />
+    <result column="safe_key_expire" property="safe_key_expire" jdbcType="TIMESTAMP" />
+    <result column="verificationCode" property="verificationCode" jdbcType="VARCHAR" />
+    <result column="verification_Time" property="verification_Time" jdbcType="TIMESTAMP" />
+    <result column="verification_send_Time" property="verification_send_Time" jdbcType="TIMESTAMP" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="access_token" property="access_token" jdbcType="VARCHAR" />
+    <result column="access_type" property="access_type" jdbcType="VARCHAR" />
+    <result column="operation_password" property="operation_password" jdbcType="VARCHAR" />
+    <result column="wxToken" property="wxToken" jdbcType="VARCHAR" />
+    <result column="qqToken" property="qqToken" jdbcType="VARCHAR" />
+    <result column="wbToken" property="wbToken" jdbcType="VARCHAR" />
+    <result column="fbToken" property="fbToken" jdbcType="VARCHAR" />
+    <result column="phoneBrand" property="phoneBrand" jdbcType="VARCHAR" />
+    <result column="smsSum" property="smsSum" jdbcType="INTEGER" />
+    <result column="smsSurplus" property="smsSurplus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, openid, user_id, nickname, password, salt, updateTime, createTime, login_Time, 
+    email, phone, sex, is_enabled, locked_Time, login_failure_count, login_ip, language, 
+    safe_key_value, safe_key_expire, verificationCode, verification_Time, verification_send_Time, 
+    description, access_token, access_type, operation_password, wxToken, qqToken, wbToken, 
+    fbToken, phoneBrand, smsSum, smsSurplus
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jy.entity.system.device.JyCeqUserCameraExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jy_ceq_user_camera
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from jy_ceq_user_camera
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from jy_ceq_user_camera
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jy.entity.system.device.JyCeqUserCameraExample" >
+    delete from jy_ceq_user_camera
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+<!--  <insert id="insert" parameterType="com.jy.entity.system.device.JyCeqUserCamera" >
+    insert into jy_ceq_user_camera (id, openid, user_id, 
+      nickname, password, salt, 
+      updateTime, createTime, login_Time, 
+      email, phone, sex, 
+      is_enabled, locked_Time, login_failure_count, 
+      login_ip, language, safe_key_value, 
+      safe_key_expire, verificationCode, verification_Time, 
+      verification_send_Time, description, 
+      access_token, access_type, operation_password, 
+      wxToken, qqToken, wbToken, 
+      fbToken, phoneBrand, smsSum, 
+      smsSurplus)
+    values (#{id,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{user_id,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{login_Time,jdbcType=TIMESTAMP}, 
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{is_enabled,jdbcType=INTEGER}, #{locked_Time,jdbcType=TIMESTAMP}, #{login_failure_count,jdbcType=INTEGER}, 
+      #{login_ip,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{safe_key_value,jdbcType=VARCHAR}, 
+      #{safe_key_expire,jdbcType=TIMESTAMP}, #{verificationCode,jdbcType=VARCHAR}, #{verification_Time,jdbcType=TIMESTAMP}, 
+      #{verification_send_Time,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
+      #{access_token,jdbcType=VARCHAR}, #{access_type,jdbcType=VARCHAR}, #{operation_password,jdbcType=VARCHAR}, 
+      #{wxToken,jdbcType=VARCHAR}, #{qqToken,jdbcType=VARCHAR}, #{wbToken,jdbcType=VARCHAR}, 
+      #{fbToken,jdbcType=VARCHAR}, #{phoneBrand,jdbcType=VARCHAR}, #{smsSum,jdbcType=INTEGER}, 
+      #{smsSurplus,jdbcType=INTEGER})
+  </insert>-->
+  <insert id="insertSelective" parameterType="com.jy.entity.system.device.JyCeqUserCamera" >
+    insert into jy_ceq_user_camera
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="user_id != null" >
+        user_id,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="login_Time != null" >
+        login_Time,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="is_enabled != null" >
+        is_enabled,
+      </if>
+      <if test="locked_Time != null" >
+        locked_Time,
+      </if>
+      <if test="login_failure_count != null" >
+        login_failure_count,
+      </if>
+      <if test="login_ip != null" >
+        login_ip,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="safe_key_value != null" >
+        safe_key_value,
+      </if>
+      <if test="safe_key_expire != null" >
+        safe_key_expire,
+      </if>
+      <if test="verificationCode != null" >
+        verificationCode,
+      </if>
+      <if test="verification_Time != null" >
+        verification_Time,
+      </if>
+      <if test="verification_send_Time != null" >
+        verification_send_Time,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="access_token != null" >
+        access_token,
+      </if>
+      <if test="access_type != null" >
+        access_type,
+      </if>
+      <if test="operation_password != null" >
+        operation_password,
+      </if>
+      <if test="wxToken != null" >
+        wxToken,
+      </if>
+      <if test="qqToken != null" >
+        qqToken,
+      </if>
+      <if test="wbToken != null" >
+        wbToken,
+      </if>
+      <if test="fbToken != null" >
+        fbToken,
+      </if>
+      <if test="phoneBrand != null" >
+        phoneBrand,
+      </if>
+      <if test="smsSum != null" >
+        smsSum,
+      </if>
+      <if test="smsSurplus != null" >
+        smsSurplus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null" >
+        #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="login_Time != null" >
+        #{login_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="is_enabled != null" >
+        #{is_enabled,jdbcType=INTEGER},
+      </if>
+      <if test="locked_Time != null" >
+        #{locked_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="login_failure_count != null" >
+        #{login_failure_count,jdbcType=INTEGER},
+      </if>
+      <if test="login_ip != null" >
+        #{login_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="safe_key_value != null" >
+        #{safe_key_value,jdbcType=VARCHAR},
+      </if>
+      <if test="safe_key_expire != null" >
+        #{safe_key_expire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verificationCode != null" >
+        #{verificationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="verification_Time != null" >
+        #{verification_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verification_send_Time != null" >
+        #{verification_send_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="access_token != null" >
+        #{access_token,jdbcType=VARCHAR},
+      </if>
+      <if test="access_type != null" >
+        #{access_type,jdbcType=VARCHAR},
+      </if>
+      <if test="operation_password != null" >
+        #{operation_password,jdbcType=VARCHAR},
+      </if>
+      <if test="wxToken != null" >
+        #{wxToken,jdbcType=VARCHAR},
+      </if>
+      <if test="qqToken != null" >
+        #{qqToken,jdbcType=VARCHAR},
+      </if>
+      <if test="wbToken != null" >
+        #{wbToken,jdbcType=VARCHAR},
+      </if>
+      <if test="fbToken != null" >
+        #{fbToken,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneBrand != null" >
+        #{phoneBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="smsSum != null" >
+        #{smsSum,jdbcType=INTEGER},
+      </if>
+      <if test="smsSurplus != null" >
+        #{smsSurplus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jy.entity.system.device.JyCeqUserCameraExample" resultType="java.lang.Integer" >
+    select count(*) from jy_ceq_user_camera
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jy_ceq_user_camera
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openid != null" >
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.user_id != null" >
+        user_id = #{record.user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.login_Time != null" >
+        login_Time = #{record.login_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.is_enabled != null" >
+        is_enabled = #{record.is_enabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.locked_Time != null" >
+        locked_Time = #{record.locked_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.login_failure_count != null" >
+        login_failure_count = #{record.login_failure_count,jdbcType=INTEGER},
+      </if>
+      <if test="record.login_ip != null" >
+        login_ip = #{record.login_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.language != null" >
+        language = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.safe_key_value != null" >
+        safe_key_value = #{record.safe_key_value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.safe_key_expire != null" >
+        safe_key_expire = #{record.safe_key_expire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.verificationCode != null" >
+        verificationCode = #{record.verificationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.verification_Time != null" >
+        verification_Time = #{record.verification_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.verification_send_Time != null" >
+        verification_send_Time = #{record.verification_send_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.access_token != null" >
+        access_token = #{record.access_token,jdbcType=VARCHAR},
+      </if>
+      <if test="record.access_type != null" >
+        access_type = #{record.access_type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operation_password != null" >
+        operation_password = #{record.operation_password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxToken != null" >
+        wxToken = #{record.wxToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qqToken != null" >
+        qqToken = #{record.qqToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wbToken != null" >
+        wbToken = #{record.wbToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fbToken != null" >
+        fbToken = #{record.fbToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneBrand != null" >
+        phoneBrand = #{record.phoneBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smsSum != null" >
+        smsSum = #{record.smsSum,jdbcType=INTEGER},
+      </if>
+      <if test="record.smsSurplus != null" >
+        smsSurplus = #{record.smsSurplus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jy_ceq_user_camera
+    set id = #{record.id,jdbcType=VARCHAR},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      user_id = #{record.user_id,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      login_Time = #{record.login_Time,jdbcType=TIMESTAMP},
+      email = #{record.email,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      is_enabled = #{record.is_enabled,jdbcType=INTEGER},
+      locked_Time = #{record.locked_Time,jdbcType=TIMESTAMP},
+      login_failure_count = #{record.login_failure_count,jdbcType=INTEGER},
+      login_ip = #{record.login_ip,jdbcType=VARCHAR},
+      language = #{record.language,jdbcType=VARCHAR},
+      safe_key_value = #{record.safe_key_value,jdbcType=VARCHAR},
+      safe_key_expire = #{record.safe_key_expire,jdbcType=TIMESTAMP},
+      verificationCode = #{record.verificationCode,jdbcType=VARCHAR},
+      verification_Time = #{record.verification_Time,jdbcType=TIMESTAMP},
+      verification_send_Time = #{record.verification_send_Time,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=VARCHAR},
+      access_token = #{record.access_token,jdbcType=VARCHAR},
+      access_type = #{record.access_type,jdbcType=VARCHAR},
+      operation_password = #{record.operation_password,jdbcType=VARCHAR},
+      wxToken = #{record.wxToken,jdbcType=VARCHAR},
+      qqToken = #{record.qqToken,jdbcType=VARCHAR},
+      wbToken = #{record.wbToken,jdbcType=VARCHAR},
+      fbToken = #{record.fbToken,jdbcType=VARCHAR},
+      phoneBrand = #{record.phoneBrand,jdbcType=VARCHAR},
+      smsSum = #{record.smsSum,jdbcType=INTEGER},
+      smsSurplus = #{record.smsSurplus,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jy.entity.system.device.JyCeqUserCamera" >
+    update jy_ceq_user_camera
+    <set >
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null" >
+        user_id = #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="login_Time != null" >
+        login_Time = #{login_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="is_enabled != null" >
+        is_enabled = #{is_enabled,jdbcType=INTEGER},
+      </if>
+      <if test="locked_Time != null" >
+        locked_Time = #{locked_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="login_failure_count != null" >
+        login_failure_count = #{login_failure_count,jdbcType=INTEGER},
+      </if>
+      <if test="login_ip != null" >
+        login_ip = #{login_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="safe_key_value != null" >
+        safe_key_value = #{safe_key_value,jdbcType=VARCHAR},
+      </if>
+      <if test="safe_key_expire != null" >
+        safe_key_expire = #{safe_key_expire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verificationCode != null" >
+        verificationCode = #{verificationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="verification_Time != null" >
+        verification_Time = #{verification_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verification_send_Time != null" >
+        verification_send_Time = #{verification_send_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="access_token != null" >
+        access_token = #{access_token,jdbcType=VARCHAR},
+      </if>
+      <if test="access_type != null" >
+        access_type = #{access_type,jdbcType=VARCHAR},
+      </if>
+      <if test="operation_password != null" >
+        operation_password = #{operation_password,jdbcType=VARCHAR},
+      </if>
+      <if test="wxToken != null" >
+        wxToken = #{wxToken,jdbcType=VARCHAR},
+      </if>
+      <if test="qqToken != null" >
+        qqToken = #{qqToken,jdbcType=VARCHAR},
+      </if>
+      <if test="wbToken != null" >
+        wbToken = #{wbToken,jdbcType=VARCHAR},
+      </if>
+      <if test="fbToken != null" >
+        fbToken = #{fbToken,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneBrand != null" >
+        phoneBrand = #{phoneBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="smsSum != null" >
+        smsSum = #{smsSum,jdbcType=INTEGER},
+      </if>
+      <if test="smsSurplus != null" >
+        smsSurplus = #{smsSurplus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jy.entity.system.device.JyCeqUserCamera" >
+    update jy_ceq_user_camera
+    set openid = #{openid,jdbcType=VARCHAR},
+      user_id = #{user_id,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      login_Time = #{login_Time,jdbcType=TIMESTAMP},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      is_enabled = #{is_enabled,jdbcType=INTEGER},
+      locked_Time = #{locked_Time,jdbcType=TIMESTAMP},
+      login_failure_count = #{login_failure_count,jdbcType=INTEGER},
+      login_ip = #{login_ip,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      safe_key_value = #{safe_key_value,jdbcType=VARCHAR},
+      safe_key_expire = #{safe_key_expire,jdbcType=TIMESTAMP},
+      verificationCode = #{verificationCode,jdbcType=VARCHAR},
+      verification_Time = #{verification_Time,jdbcType=TIMESTAMP},
+      verification_send_Time = #{verification_send_Time,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      access_token = #{access_token,jdbcType=VARCHAR},
+      access_type = #{access_type,jdbcType=VARCHAR},
+      operation_password = #{operation_password,jdbcType=VARCHAR},
+      wxToken = #{wxToken,jdbcType=VARCHAR},
+      qqToken = #{qqToken,jdbcType=VARCHAR},
+      wbToken = #{wbToken,jdbcType=VARCHAR},
+      fbToken = #{fbToken,jdbcType=VARCHAR},
+      phoneBrand = #{phoneBrand,jdbcType=VARCHAR},
+      smsSum = #{smsSum,jdbcType=INTEGER},
+      smsSurplus = #{smsSurplus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--根据id获取摄像头的信息资料-->
+  <select id="findDeviceByKey"  resultMap="BaseResultMap" parameterType="String">
+      SELECT t.* FROM jy_ceq_user_camera t WHERE 1=1
+      <if test="id != null and id!='' ">
+        AND t.id=#{id}
+      </if>
+  </select>
+  <!--后续添加-->
+
+  <!--二者方法一样-->
+  <select id="find"  resultMap="BaseResultMap" parameterType="com.jy.entity.system.device.JyCeqUserCamera">
+    SELECT t.* FROM JY_CEQ_USER_CAMERA t WHERE 1=1
+    <if test="id != null and id!='' ">
+      AND t.id=#{id}
+    </if>
+    <if test="email != null and email!='' ">
+      AND t.email=#{email}
+    </if>
+    <if test="phone != null and phone!='' ">
+      AND t.phone=#{phone}
+    </if>
+    <if test="openid != null and openid!='' ">
+      AND t.openid=#{openid}
+    </if>
+<!--    <if test="password != null and password!='' ">
+      AND t.password=#{password}
+    </if>-->
+  </select>
+  <select id="findemailphone"  resultMap="BaseResultMap" parameterType="com.jy.entity.system.device.JyCeqUserCamera">
+    SELECT t.* FROM JY_CEQ_USER_CAMERA t WHERE 1=1
+    <if test="id != null and id!='' ">
+      AND t.id=#{id}
+    </if>
+    <if test="email != null and email!='' ">
+      AND t.email=#{email}
+    </if>
+    <if test="phone != null and phone!='' ">
+      AND t.phone=#{phone}
+    </if>
+    AND t.is_enabled = '1'
+  </select>
+
+
+  <!--安全密钥获取数据-->
+  <select id="finddevicesafe_key_value"  resultMap="BaseResultMap" parameterType="com.jy.entity.system.device.JyCeqUserCamera">
+    SELECT t.* FROM JY_CEQ_USER_CAMERA t WHERE 1=1
+    <if test="id != null and id!='' ">
+      AND t.id=#{id}
+    </if>
+    <if test="safe_key_value != null and safe_key_value!='' ">
+      AND t.safe_key_value=#{safe_key_value}
+    </if>
+  </select>
+
+
+  <!--分页-->
+  <select id="findByPage"  resultMap="BaseResultMap" parameterType="com.jy.entity.system.device.JyCeqUserCamera">
+    SELECT t.* FROM JY_CEQ_USER_CAMERA t WHERE 1=1
+    <if test="param.id!= null and param.id!='' ">
+      AND t.id=#{param.id}
+    </if>
+    <if test="param.keyWord!= null">
+      AND (
+      t.email LIKE CONCAT('%',#{param.keyWord},'%')
+      OR   t.phone LIKE CONCAT('%',#{param.keyWord},'%')
+      OR   t.nickname LIKE CONCAT('%',#{param.keyWord},'%')
+      )
+    </if>
+    order by t.createTime desc
+  </select>
+  <!--统计-->
+  <select id="count"  resultType="int" parameterType="com.jy.entity.system.device.JyCeqUserCamera">
+       SELECT count(*) FROM JY_CEQ_USER_CAMERA t WHERE 1=1
+    </select>
+  <insert id="insert"  parameterType="com.jy.entity.system.device.JyCeqUserCamera">
+ 	<![CDATA[
+	INSERT INTO JY_CEQ_USER_CAMERA(
+	id,
+	openid,
+	user_id,
+	nickname,
+	password,
+	salt,
+	updateTime,
+	createTime,
+	login_Time,
+	email,
+	phone,
+	sex,
+	is_enabled,
+	locked_Time,
+	login_failure_count,
+	login_ip,
+	language,
+	safe_key_value,
+	safe_key_expire,
+	verificationCode,
+	verification_Time,
+	verification_send_Time,
+	description,
+	access_token,
+	access_type,
+	operation_password,
+	wxToken,
+	qqToken,
+	wbToken,
+	fbToken,
+	phoneBrand,
+	smsSum,
+	smsSurplus
+	) VALUES (
+	#{id},
+	#{openid},
+	#{user_id},
+	#{nickname},
+	#{password},
+	#{salt},
+	#{updateTime},
+	#{createTime},
+	#{login_Time},
+	#{email},
+	#{phone},
+	#{sex},
+	#{is_enabled},
+	#{locked_Time},
+	#{login_failure_count},
+	#{login_ip},
+	#{language},
+	#{safe_key_value},
+	#{safe_key_expire},
+	#{verificationCode},
+	#{verification_Time},
+	#{verification_send_Time},
+	#{description},
+	#{access_token},
+	#{access_type},
+	#{operation_password},
+	#{wxToken},
+	#{qqToken},
+	#{wbToken},
+	#{fbToken},
+	#{phoneBrand},
+	#{smsSum},
+	#{smsSurplus}
+	)
+	]]>
+	</insert>
+  <delete id="delete" parameterType="com.jy.entity.system.device.JyCeqUserCamera">
+	DELETE FROM JY_CEQ_USER_CAMERA  WHERE 1=1
+	AND id=#{id}
+	</delete>
+
+  <!--批量删除-->
+  <delete id="deleteBatch" parameterType="java.util.List">
+    DELETE FROM JY_CEQ_USER_CAMERA
+    WHERE id IN(
+    <foreach item="o" collection="list" open="" separator="," close="" >
+      #{o.id}
+    </foreach>
+    )
+  </delete>
+
+  <!--跟新-->
+  <update id="update" parameterType="com.jy.entity.system.device.JyCeqUserCamera">
+		UPDATE JY_CEQ_USER_CAMERA
+		SET
+	id =#{id},
+	openid =#{openid},
+	user_id =#{user_id},
+	nickname =#{nickname},
+	password =#{password},
+	salt =#{salt},
+	updateTime =#{updateTime},
+	createTime =#{createTime},
+	login_Time =#{login_Time},
+	email =#{email},
+	phone =#{phone},
+	sex =#{sex},
+	is_enabled =#{is_enabled},
+	locked_Time =#{locked_Time},
+	login_failure_count =#{login_failure_count},
+	login_ip =#{login_ip},
+	language =#{language},
+	safe_key_value =#{safe_key_value},
+	safe_key_expire =#{safe_key_expire},
+	verificationCode =#{verificationCode},
+	verification_Time =#{verification_Time},
+	verification_send_Time =#{verification_send_Time},
+	description =#{description},
+	access_token =#{access_token},
+	access_type =#{access_type},
+	operation_password =#{operation_password},
+	wxToken =#{wxToken},
+	qqToken =#{qqToken},
+	wbToken =#{wbToken},
+	fbToken =#{fbToken},
+	phoneBrand =#{phoneBrand},
+	smsSum =#{smsSum},
+	smsSurplus =#{smsSurplus}
+		WHERE
+			id=#{id}
+	</update>
+
+
+
+
+</mapper>

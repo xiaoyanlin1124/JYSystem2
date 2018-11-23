@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jy.mapper.system.device.JyCeqPushDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.jy.entity.system.device.JyCeqPushDevice" >
+    <id column="device_id" property="device_id" jdbcType="VARCHAR" />
+    <result column="device_model" property="device_model" jdbcType="VARCHAR" />
+    <result column="create_ip" property="create_ip" jdbcType="VARCHAR" />
+    <result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+    <result column="update_ip" property="update_ip" jdbcType="VARCHAR" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="un_lock" property="un_lock" jdbcType="INTEGER" />
+    <result column="hijack" property="hijack" jdbcType="INTEGER" />
+    <result column="warning" property="warning" jdbcType="INTEGER" />
+    <result column="lowPower" property="lowPower" jdbcType="INTEGER" />
+    <result column="smscount" property="smscount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    device_id, device_model, create_ip, create_time, update_ip, update_time, un_lock, 
+    hijack, warning, lowPower, smscount
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jy.entity.system.device.JyCeqPushDeviceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jy_ceq_push_device
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from jy_ceq_push_device
+    where device_id = #{device_id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from jy_ceq_push_device
+    where device_id = #{device_id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jy.entity.system.device.JyCeqPushDeviceExample" >
+    delete from jy_ceq_push_device
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jy.entity.system.device.JyCeqPushDevice" >
+    insert into jy_ceq_push_device (device_id, device_model, create_ip, 
+      create_time, update_ip, update_time, 
+      un_lock, hijack, warning, 
+      lowPower, smscount)
+    values (#{device_id,jdbcType=VARCHAR}, #{device_model,jdbcType=VARCHAR}, #{create_ip,jdbcType=VARCHAR}, 
+      #{create_time,jdbcType=TIMESTAMP}, #{update_ip,jdbcType=VARCHAR}, #{update_time,jdbcType=TIMESTAMP},
+      #{un_lock,jdbcType=INTEGER}, #{hijack,jdbcType=INTEGER}, #{warning,jdbcType=INTEGER}, 
+      #{lowPower,jdbcType=INTEGER}, #{smscount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jy.entity.system.device.JyCeqPushDevice" >
+    insert into jy_ceq_push_device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="device_id != null" >
+        device_id,
+      </if>
+      <if test="device_model != null" >
+        device_model,
+      </if>
+      <if test="create_ip != null" >
+        create_ip,
+      </if>
+      <if test="create_time != null" >
+        create_time,
+      </if>
+      <if test="update_ip != null" >
+        update_ip,
+      </if>
+      <if test="update_time != null" >
+        update_time,
+      </if>
+      <if test="un_lock != null" >
+        un_lock,
+      </if>
+      <if test="hijack != null" >
+        hijack,
+      </if>
+      <if test="warning != null" >
+        warning,
+      </if>
+      <if test="lowPower != null" >
+        lowPower,
+      </if>
+      <if test="smscount != null" >
+        smscount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="device_id != null" >
+        #{device_id,jdbcType=VARCHAR},
+      </if>
+      <if test="device_model != null" >
+        #{device_model,jdbcType=VARCHAR},
+      </if>
+      <if test="create_ip != null" >
+        #{create_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null" >
+        #{create_time,jdbcType=DATE},
+      </if>
+      <if test="update_ip != null" >
+        #{update_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="update_time != null" >
+        #{update_time,jdbcType=DATE},
+      </if>
+      <if test="un_lock != null" >
+        #{un_lock,jdbcType=INTEGER},
+      </if>
+      <if test="hijack != null" >
+        #{hijack,jdbcType=INTEGER},
+      </if>
+      <if test="warning != null" >
+        #{warning,jdbcType=INTEGER},
+      </if>
+      <if test="lowPower != null" >
+        #{lowPower,jdbcType=INTEGER},
+      </if>
+      <if test="smscount != null" >
+        #{smscount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jy.entity.system.device.JyCeqPushDeviceExample" resultType="java.lang.Integer" >
+    select count(*) from jy_ceq_push_device
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jy_ceq_push_device
+    <set >
+      <if test="record.device_id != null" >
+        device_id = #{record.device_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.device_model != null" >
+        device_model = #{record.device_model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.create_ip != null" >
+        create_ip = #{record.create_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.create_time != null" >
+        create_time = #{record.create_time,jdbcType=DATE},
+      </if>
+      <if test="record.update_ip != null" >
+        update_ip = #{record.update_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.update_time != null" >
+        update_time = #{record.update_time,jdbcType=DATE},
+      </if>
+      <if test="record.un_lock != null" >
+        un_lock = #{record.un_lock,jdbcType=INTEGER},
+      </if>
+      <if test="record.hijack != null" >
+        hijack = #{record.hijack,jdbcType=INTEGER},
+      </if>
+      <if test="record.warning != null" >
+        warning = #{record.warning,jdbcType=INTEGER},
+      </if>
+      <if test="record.lowPower != null" >
+        lowPower = #{record.lowPower,jdbcType=INTEGER},
+      </if>
+      <if test="record.smscount != null" >
+        smscount = #{record.smscount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jy_ceq_push_device
+    set device_id = #{record.device_id,jdbcType=VARCHAR},
+      device_model = #{record.device_model,jdbcType=VARCHAR},
+      create_ip = #{record.create_ip,jdbcType=VARCHAR},
+      create_time = #{record.create_time,jdbcType=DATE},
+      update_ip = #{record.update_ip,jdbcType=VARCHAR},
+      update_time = #{record.update_time,jdbcType=DATE},
+      un_lock = #{record.un_lock,jdbcType=INTEGER},
+      hijack = #{record.hijack,jdbcType=INTEGER},
+      warning = #{record.warning,jdbcType=INTEGER},
+      lowPower = #{record.lowPower,jdbcType=INTEGER},
+      smscount = #{record.smscount,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jy.entity.system.device.JyCeqPushDevice" >
+    update jy_ceq_push_device
+    <set >
+      <if test="device_model != null" >
+        device_model = #{device_model,jdbcType=VARCHAR},
+      </if>
+      <if test="create_ip != null" >
+        create_ip = #{create_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null" >
+        create_time = #{create_time,jdbcType=DATE},
+      </if>
+      <if test="update_ip != null" >
+        update_ip = #{update_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="update_time != null" >
+        update_time = #{update_time,jdbcType=DATE},
+      </if>
+      <if test="un_lock != null" >
+        un_lock = #{un_lock,jdbcType=INTEGER},
+      </if>
+      <if test="hijack != null" >
+        hijack = #{hijack,jdbcType=INTEGER},
+      </if>
+      <if test="warning != null" >
+        warning = #{warning,jdbcType=INTEGER},
+      </if>
+      <if test="lowPower != null" >
+        lowPower = #{lowPower,jdbcType=INTEGER},
+      </if>
+      <if test="smscount != null" >
+        smscount = #{smscount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where device_id = #{device_id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jy.entity.system.device.JyCeqPushDevice" >
+    update jy_ceq_push_device
+    set device_model = #{device_model,jdbcType=VARCHAR},
+      create_ip = #{create_ip,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=DATE},
+      update_ip = #{update_ip,jdbcType=VARCHAR},
+      update_time = #{update_time,jdbcType=DATE},
+      un_lock = #{un_lock,jdbcType=INTEGER},
+      hijack = #{hijack,jdbcType=INTEGER},
+      warning = #{warning,jdbcType=INTEGER},
+      lowPower = #{lowPower,jdbcType=INTEGER},
+      smscount = #{smscount,jdbcType=INTEGER}
+    where device_id = #{device_id,jdbcType=VARCHAR}
+  </update>
+
+<!--泛型-->
+  <select id="find"  resultMap="BaseResultMap" parameterType="com.jy.entity.system.device.JyCeqPushDevice">
+  SELECT t.* FROM  jy_ceq_push_device  t WHERE 1=1
+  <if test="device_id != null and device_id!='' ">
+    AND t.device_id=#{device_id}
+  </if>
+  <if test="device_model != null and device_model!='' ">
+    AND device_model=#{device_model}
+  </if>
+  </select>
+
+  <update id="update" parameterType="com.jy.entity.system.device.JyCeqPushDevice">
+	UPDATE
+  `jysystem`.`jy_ceq_push_device`
+SET
+  `device_model` = #{device_model},
+  `create_ip` = #{create_ip},
+  `create_time` = #{create_time},
+  `update_ip` = #{update_ip},
+  `update_time` = #{update_time},
+  `un_lock` = #{un_lock},
+  `hijack` = #{hijack},
+  `warning` = #{warning},
+  `lowPower` = #{lowPower},
+  `smscount` = #{smscount}
+WHERE `device_id` = #{device_id}
+	</update>
+
+
+
+
+</mapper>

@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jy.mapper.system.device.JyCeqUserDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.jy.entity.system.device.JyCeqUserDevice" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="device_model" property="device_model" jdbcType="VARCHAR" />
+    <result column="device_name" property="device_name" jdbcType="VARCHAR" />
+    <result column="admin_name" property="admin_name" jdbcType="VARCHAR" />
+    <result column="device_id" property="device_id" jdbcType="VARCHAR" />
+    <result column="user_id" property="user_id" jdbcType="VARCHAR" />
+    <result column="admin_password" property="admin_password" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="lockOnPush" property="lockOnPush" jdbcType="TINYINT" />
+    <result column="hijackPush" property="hijackPush" jdbcType="TINYINT" />
+    <result column="alarmPush" property="alarmPush" jdbcType="TINYINT" />
+    <result column="powerLowPush" property="powerLowPush" jdbcType="TINYINT" />
+    <result column="SMSPush" property="SMSPush" jdbcType="TINYINT" />
+    <result column="pushToken" property="pushToken" jdbcType="VARCHAR" />
+    <result column="pushPlatform" property="pushPlatform" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+
+    <!--一对多关联映射配置      author ：xiao     data：2018-11-11   start -->
+    <!-- 配置关联映射ip地址信息-->
+    <!--association:用于映射关联查询JyCeqUserIpAdd对象的信息
+           property:要将关联查询的信息映射到实体对应的属性
+    -->
+    <association property="jyCeqUserIpadd" javaType="com.jy.entity.system.device.JyCeqUserIpadd">
+      <id column="id" property="id"/>
+      <id column="ip" property="ip"/>
+      <!--ip创建-->
+      <id column="create_ip" property="create_ip"/>
+      <!--用户id 或者设备id-->
+      <id column="user_id" property="user_id"/>
+      <!--创建时间-->
+      <id column="createTime" property="createTime"/>
+      <!--更新时间-->
+      <id column="updateTime" property="updateTime"/>
+      <id column="count" property="count" />
+    </association>
+    <!--一对多关联映射配置      author ：xiao     data：2018-11-11   end -->
+
+  </resultMap>
+
+
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, device_model, device_name, admin_name, device_id, user_id, admin_password, description, 
+    lockOnPush, hijackPush, alarmPush, powerLowPush, SMSPush, pushToken, pushPlatform, 
+    createTime, updateTime, language
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jy.entity.system.device.JyCeqUserDeviceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jy_ceq_user_device
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from jy_ceq_user_device
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from jy_ceq_user_device
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jy.entity.system.device.JyCeqUserDeviceExample" >
+    delete from jy_ceq_user_device
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+<!--  <insert id="insert" parameterType="com.jy.entity.system.device.JyCeqUserDevice" >
+    insert into jy_ceq_user_device (id, device_model, device_name, 
+      admin_name, device_id, user_id, 
+      admin_password, description, lockOnPush, 
+      hijackPush, alarmPush, powerLowPush, 
+      SMSPush, pushToken, pushPlatform, 
+      createTime, updateTime, language
+      )
+    values (#{id,jdbcType=VARCHAR}, #{device_model,jdbcType=VARCHAR}, #{device_name,jdbcType=VARCHAR}, 
+      #{admin_name,jdbcType=VARCHAR}, #{device_id,jdbcType=VARCHAR}, #{user_id,jdbcType=VARCHAR}, 
+      #{admin_password,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{lockOnPush,jdbcType=TINYINT}, 
+      #{hijackPush,jdbcType=TINYINT}, #{alarmPush,jdbcType=TINYINT}, #{powerLowPush,jdbcType=TINYINT}, 
+      #{SMSPush,jdbcType=TINYINT}, #{pushToken,jdbcType=VARCHAR}, #{pushPlatform,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{language,jdbcType=VARCHAR}
+      )
+  </insert>-->
+  <insert id="insertSelective" parameterType="com.jy.entity.system.device.JyCeqUserDevice" >
+    insert into jy_ceq_user_device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="device_model != null" >
+        device_model,
+      </if>
+      <if test="device_name != null" >
+        device_name,
+      </if>
+      <if test="admin_name != null" >
+        admin_name,
+      </if>
+      <if test="device_id != null" >
+        device_id,
+      </if>
+      <if test="user_id != null" >
+        user_id,
+      </if>
+      <if test="admin_password != null" >
+        admin_password,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="lockOnPush != null" >
+        lockOnPush,
+      </if>
+      <if test="hijackPush != null" >
+        hijackPush,
+      </if>
+      <if test="alarmPush != null" >
+        alarmPush,
+      </if>
+      <if test="powerLowPush != null" >
+        powerLowPush,
+      </if>
+      <if test="SMSPush != null" >
+        SMSPush,
+      </if>
+      <if test="pushToken != null" >
+        pushToken,
+      </if>
+      <if test="pushPlatform != null" >
+        pushPlatform,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="device_model != null" >
+        #{device_model,jdbcType=VARCHAR},
+      </if>
+      <if test="device_name != null" >
+        #{device_name,jdbcType=VARCHAR},
+      </if>
+      <if test="admin_name != null" >
+        #{admin_name,jdbcType=VARCHAR},
+      </if>
+      <if test="device_id != null" >
+        #{device_id,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null" >
+        #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="admin_password != null" >
+        #{admin_password,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="lockOnPush != null" >
+        #{lockOnPush,jdbcType=TINYINT},
+      </if>
+      <if test="hijackPush != null" >
+        #{hijackPush,jdbcType=TINYINT},
+      </if>
+      <if test="alarmPush != null" >
+        #{alarmPush,jdbcType=TINYINT},
+      </if>
+      <if test="powerLowPush != null" >
+        #{powerLowPush,jdbcType=TINYINT},
+      </if>
+      <if test="SMSPush != null" >
+        #{SMSPush,jdbcType=TINYINT},
+      </if>
+      <if test="pushToken != null" >
+        #{pushToken,jdbcType=VARCHAR},
+      </if>
+      <if test="pushPlatform != null" >
+        #{pushPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jy.entity.system.device.JyCeqUserDeviceExample" resultType="java.lang.Integer" >
+    select count(*) from jy_ceq_user_device
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jy_ceq_user_device
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.device_model != null" >
+        device_model = #{record.device_model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.device_name != null" >
+        device_name = #{record.device_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admin_name != null" >
+        admin_name = #{record.admin_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.device_id != null" >
+        device_id = #{record.device_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.user_id != null" >
+        user_id = #{record.user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admin_password != null" >
+        admin_password = #{record.admin_password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lockOnPush != null" >
+        lockOnPush = #{record.lockOnPush,jdbcType=TINYINT},
+      </if>
+      <if test="record.hijackPush != null" >
+        hijackPush = #{record.hijackPush,jdbcType=TINYINT},
+      </if>
+      <if test="record.alarmPush != null" >
+        alarmPush = #{record.alarmPush,jdbcType=TINYINT},
+      </if>
+      <if test="record.powerLowPush != null" >
+        powerLowPush = #{record.powerLowPush,jdbcType=TINYINT},
+      </if>
+      <if test="record.SMSPush != null" >
+        SMSPush = #{record.SMSPush,jdbcType=TINYINT},
+      </if>
+      <if test="record.pushToken != null" >
+        pushToken = #{record.pushToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pushPlatform != null" >
+        pushPlatform = #{record.pushPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.language != null" >
+        language = #{record.language,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jy_ceq_user_device
+    set id = #{record.id,jdbcType=VARCHAR},
+      device_model = #{record.device_model,jdbcType=VARCHAR},
+      device_name = #{record.device_name,jdbcType=VARCHAR},
+      admin_name = #{record.admin_name,jdbcType=VARCHAR},
+      device_id = #{record.device_id,jdbcType=VARCHAR},
+      user_id = #{record.user_id,jdbcType=VARCHAR},
+      admin_password = #{record.admin_password,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      lockOnPush = #{record.lockOnPush,jdbcType=TINYINT},
+      hijackPush = #{record.hijackPush,jdbcType=TINYINT},
+      alarmPush = #{record.alarmPush,jdbcType=TINYINT},
+      powerLowPush = #{record.powerLowPush,jdbcType=TINYINT},
+      SMSPush = #{record.SMSPush,jdbcType=TINYINT},
+      pushToken = #{record.pushToken,jdbcType=VARCHAR},
+      pushPlatform = #{record.pushPlatform,jdbcType=VARCHAR},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      language = #{record.language,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jy.entity.system.device.JyCeqUserDevice" >
+    update jy_ceq_user_device
+    <set >
+      <if test="device_model != null" >
+        device_model = #{device_model,jdbcType=VARCHAR},
+      </if>
+      <if test="device_name != null" >
+        device_name = #{device_name,jdbcType=VARCHAR},
+      </if>
+      <if test="admin_name != null" >
+        admin_name = #{admin_name,jdbcType=VARCHAR},
+      </if>
+      <if test="device_id != null" >
+        device_id = #{device_id,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null" >
+        user_id = #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="admin_password != null" >
+        admin_password = #{admin_password,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="lockOnPush != null" >
+        lockOnPush = #{lockOnPush,jdbcType=TINYINT},
+      </if>
+      <if test="hijackPush != null" >
+        hijackPush = #{hijackPush,jdbcType=TINYINT},
+      </if>
+      <if test="alarmPush != null" >
+        alarmPush = #{alarmPush,jdbcType=TINYINT},
+      </if>
+      <if test="powerLowPush != null" >
+        powerLowPush = #{powerLowPush,jdbcType=TINYINT},
+      </if>
+      <if test="SMSPush != null" >
+        SMSPush = #{SMSPush,jdbcType=TINYINT},
+      </if>
+      <if test="pushToken != null" >
+        pushToken = #{pushToken,jdbcType=VARCHAR},
+      </if>
+      <if test="pushPlatform != null" >
+        pushPlatform = #{pushPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jy.entity.system.device.JyCeqUserDevice" >
+    update jy_ceq_user_device
+    set device_model = #{device_model,jdbcType=VARCHAR},
+      device_name = #{device_name,jdbcType=VARCHAR},
+      admin_name = #{admin_name,jdbcType=VARCHAR},
+      device_id = #{device_id,jdbcType=VARCHAR},
+      user_id = #{user_id,jdbcType=VARCHAR},
+      admin_password = #{admin_password,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      lockOnPush = #{lockOnPush,jdbcType=TINYINT},
+      hijackPush = #{hijackPush,jdbcType=TINYINT},
+      alarmPush = #{alarmPush,jdbcType=TINYINT},
+      powerLowPush = #{powerLowPush,jdbcType=TINYINT},
+      SMSPush = #{SMSPush,jdbcType=TINYINT},
+      pushToken = #{pushToken,jdbcType=VARCHAR},
+      pushPlatform = #{pushPlatform,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      language = #{language,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+<!--后续添加-->
+  <select id="findByPage"  resultMap="BaseResultMap" parameterType="com.jy.entity.system.device.JyCeqUserDevice">
+    SELECT t.* FROM JY_CEQ_USER_DEVICE t WHERE 1=1
+    <if test="param.id!= null and param.id!='' ">
+      AND t.id=#{param.id}
+    </if>
+    <if test="param.keyWord!= null">
+      AND (
+      t.device_model LIKE CONCAT('%',#{param.keyWord},'%')
+      OR   t.device_name LIKE CONCAT('%',#{param.keyWord},'%')
+      )
+    </if>
+    order by t.createTime desc
+  </select>
+  <select id="count"  resultType="int" parameterType="com.jy.entity.system.device.JyCeqUserDevice">
+       SELECT count(*) FROM JY_CEQ_USER_DEVICE t WHERE 1=1
+    </select>
+  <select id="find"  resultMap="BaseResultMap" parameterType="com.jy.entity.system.device.JyCeqUserDevice">
+    SELECT t.* FROM JY_CEQ_USER_DEVICE t WHERE 1=1
+    <if test="id != null and id!='' ">
+      AND t.id=#{id}
+    </if>
+    <if test="device_id!= null and device_id!='' ">
+      AND t.device_id=#{device_id}
+    </if>
+    <if test="user_id != null and user_id!='' ">
+      AND t.user_id=#{user_id}
+    </if>
+    <if test="device_model != null and device_model!='' ">
+      AND t.device_model=#{device_model}
+    </if>
+  </select>
+  <insert id="insert"  parameterType="com.jy.entity.system.device.JyCeqUserDevice">
+ 	<![CDATA[
+	INSERT INTO JY_CEQ_USER_DEVICE(
+	id,
+	device_model,
+	device_name,
+	admin_name,
+	device_id,
+	user_id,
+	admin_password,
+	description,
+	lockOnPush,
+	hijackPush,
+	alarmPush,
+	powerLowPush,
+	SMSPush,
+	pushToken,
+	pushPlatform,
+	createTime,
+	updateTime,
+	language
+	) VALUES (
+	#{id},
+	#{device_model},
+	#{device_name},
+	#{admin_name},
+	#{device_id},
+	#{user_id},
+	#{admin_password},
+	#{description},
+	#{lockOnPush},
+	#{hijackPush},
+	#{alarmPush},
+	#{powerLowPush},
+	#{SMSPush},
+	#{pushToken},
+	#{pushPlatform},
+	#{createTime},
+	#{updateTime},
+	#{language}
+	)
+	]]>
+	</insert>
+  <delete id="delete" parameterType="com.jy.entity.system.device.JyCeqUserDevice">
+	DELETE FROM JY_CEQ_USER_DEVICE  WHERE 1=1
+	AND id=#{id}
+	</delete>
+  <delete id="deleteBatch" parameterType="java.util.List">
+    DELETE FROM JY_CEQ_USER_DEVICE
+    WHERE id IN(
+    <foreach item="o" collection="list" open="" separator="," close="" >
+      #{o.id}
+    </foreach>
+    )
+  </delete>
+  <update id="update" parameterType="com.jy.entity.system.device.JyCeqUserDevice">
+		UPDATE JY_CEQ_USER_DEVICE
+		SET
+	id = #{id},
+	device_model = #{device_model},
+	device_name = #{device_name},
+	admin_name = #{admin_name},
+	device_id = #{device_id},
+	user_id = #{user_id},
+	admin_password = #{admin_password},
+	description = #{description},
+	lockOnPush = #{lockOnPush},
+	hijackPush = #{hijackPush},
+	alarmPush = #{alarmPush},
+	powerLowPush = #{powerLowPush},
+	SMSPush = #{SMSPush},
+	pushToken = #{pushToken},
+	pushPlatform = #{pushPlatform},
+	createTime = #{createTime},
+	updateTime = #{updateTime},
+	language = #{language}
+		WHERE
+			id=#{id}
+	</update>
+
+
+</mapper>
