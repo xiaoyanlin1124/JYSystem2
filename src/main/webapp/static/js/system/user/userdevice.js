@@ -1,5 +1,6 @@
 $(function () {
 	JY.Dict.setSelect("selectisValid","isValid",2,'全部');
+
 	getbaseList();
 	//增加回车事件
 	$("#baseForm").keydown(function(e){

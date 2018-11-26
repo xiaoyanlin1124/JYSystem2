@@ -51,29 +51,27 @@ public class AppDeviceServiceImpl extends BaseServiceImp<JyCeqUserDevice> implem
      * @return {"res":1,"resMsg":"修改成功","obj":null}
      */
     @Override
-    public AjaxRes updateLockOnPush(JyCeqUserCamera userCamera, JyCeqUserDevice userDevice) {
+    public AjaxRes updateLockOnPush(JyCeqUserCamera o, JyCeqUserDevice userDevice) {
         AjaxRes ar=new AjaxRes();
-        if(userCamera.getOpenid()!=null){
+        //如果第三fang登陆 则没有密码判断
+        ar.setFailMsg("用户名或者密码错误！");
+        if(o.getOpenid()!=null){
             JyCeqUserCameraExample example1=new JyCeqUserCameraExample();
             JyCeqUserCameraExample.Criteria criteria1=example1.createCriteria();
-            criteria1.andOpenidEqualTo(userCamera.getOpenid());
-            userCamera=cameraMapper.selectByExample(example1).get(0);
+            criteria1.andOpenidEqualTo(o.getOpenid());
+            o=cameraMapper.selectByExample(example1).get(0);
             JyCeqUserDeviceExample example = new JyCeqUserDeviceExample();
             JyCeqUserDeviceExample.Criteria criteria = example.createCriteria();
             criteria.andDevice_idEqualTo(userDevice.getDevice_id());
-            criteria.andUser_idEqualTo(userCamera.getId());
+            criteria.andUser_idEqualTo(o.getId());
             int result = deviceMapper.updateByExampleSelective(userDevice, example);
-            if (result > 0) {
-                ar.setSucceedMsg(Const.UPDATE_SUCCEED);
-            } else {
-                ar.setFailMsg(Const.UPDATE_FAIL);
-            }
-        }else {
-            userCamera.setPassword(DigestUtils.sha256Hex(userCamera.getPassword()));
+            if (result > 0)ar.setSucceedMsg(Const.UPDATE_SUCCEED);return  ar;
+           }
+            o.setPassword(DigestUtils.sha256Hex(o.getPassword()));
             JyCeqUserCameraExample exampleCamera = new JyCeqUserCameraExample();
             JyCeqUserCameraExample.Criteria criteriaCamera = exampleCamera.createCriteria();
-            criteriaCamera.andEmailEqualTo(userCamera.getEmail());
-            criteriaCamera.andPasswordEqualTo(userCamera.getPassword());
+            criteriaCamera.andEmailEqualTo(o.getEmail());
+            criteriaCamera.andPasswordEqualTo(o.getPassword());
             List<JyCeqUserCamera> list = cameraMapper.selectByExample(exampleCamera);
             if (list.size() > 0) {
                 userDevice.setUser_id(list.get(0).getId());
@@ -82,33 +80,21 @@ public class AppDeviceServiceImpl extends BaseServiceImp<JyCeqUserDevice> implem
                 criteria.andDevice_idEqualTo(userDevice.getDevice_id());
                 criteria.andUser_idEqualTo(list.get(0).getId());
                 int result = deviceMapper.updateByExampleSelective(userDevice, example);
-                if (result > 0) {
-                    ar.setSucceedMsg(Const.UPDATE_SUCCEED);
-                } else {
-                    ar.setFailMsg(Const.UPDATE_FAIL);
-                }
-            } else {
-                ar.setFailMsg("用户名或者密码错误！");
-            }
-        }
-        return ar;
+                if (result > 0) ar.setSucceedMsg(Const.UPDATE_SUCCEED);return ar;
+             }
+             return ar;
     }
 
     @Override
     public DevRes DelDeviceByDid(JyCeqUserCamera o,JyCeqUserDevice d) {
         DevRes ar=new DevRes();
-        ar.setFailMsg(Const.DATA_FAIL ,Const.DATA_FAIL_VALUE );
         try {
             JyCeqUserCamera user = appUserService.LoginConfirm(o);
-            if( user!=null && d.getDevice_id()!=null ){
-                System.out.println(user.getUser_id());
+            List<JyCeqUserDevice> UserDevicelist = deviceService.find(d);
+            if( user!=null && d.getDevice_id()!=null &&!UserDevicelist.isEmpty()){
                 d.setUser_id(user.getId());
-                System.out.println(d.toString());
-                List<JyCeqUserDevice> UserDevicelist = deviceService.find(d);
-                if( !UserDevicelist.isEmpty() ){
-                    deviceService.delete(UserDevicelist.get(0));
-                    ar.setSucceedMsg(Const.DEL_SUCCEED , Const.DEL_SUCCEED_VALUE);
-                }
+                deviceService.delete(UserDevicelist.get(0));
+                ar.setSucceedMsg(Const.DEL_SUCCEED , Const.DEL_SUCCEED_VALUE);
             }
         } catch (Exception e) {
             logger.error(e.toString(),e);

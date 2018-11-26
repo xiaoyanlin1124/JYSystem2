@@ -73,30 +73,27 @@ public class PushDeviceServiceImpl extends BaseServiceImp<JyCeqPushDevice> imple
 
     /**
      * 通过设备传递消息给后台，后台在通过判断将消息发送APP
-     * @param jyCeqPushDevice
-     * @param request
+     * @param jyCeqPushDevice  device_id   device_model  or  [un_lock，hijack，warning，warning]
+     * @param request 请求
      * @return
      */
     @Override
     public AjaxRes devicePush(JyCeqPushDevice jyCeqPushDevice, HttpServletRequest request) {
         AjaxRes ar=new AjaxRes();
-        //推送 ： 获取请求地址的ip信息
-        String ip=IpAdrressUtil.getIpAdrress(request);
-        //时间：时间
-        Date date=new Date();
+        ar.setFailMsg("信息发送失败！");
         try {
-            if(jyCeqPushDevice.getDevice_id()==null){
-                return null;
-            }
-            List<JyCeqPushDevice> list=this.find(jyCeqPushDevice);
-            if(!list.isEmpty()){
-                JyCeqPushDevice pushDevice=list.get(0);
-                pushDevice.setUpdate_ip(ip);
-                pushDevice.setUpdate_time(date);
+            if(jyCeqPushDevice.getDevice_id()==null) return ar;
+            if(!this.find(jyCeqPushDevice).isEmpty()){
+                JyCeqPushDevice pushDevice=this.find(jyCeqPushDevice).get(0);
+                pushDevice.setUpdate_ip(IpAdrressUtil.getIpAdrress(request));
+                pushDevice.setUpdate_time(new Date()); //设置新的时间和ip地址
+                pushDeviceMapper.updateByPrimaryKey(jyCeqPushDevice);  //设备信息存在就修改数据库信息
+
                 JyCeqUserDeviceExample example=new JyCeqUserDeviceExample();
                 JyCeqUserDeviceExample.Criteria criteria=example.createCriteria();
                 criteria.andDevice_idEqualTo(pushDevice.getDevice_id());
-                List<JyCeqUserDevice> list1=deviceMapper.selectByExample(example);
+                List<JyCeqUserDevice> list1=deviceMapper.selectByExample(example);  //查找该设备相关联用户的设备信息
+
                 for (int i = 0; i <list1.size() ; i++) {
                     if(list1.get(i).getLockOnPush()>0&&list1.get(i).getLockOnPush()!=null){
                         sendInfo(pushDevice);
@@ -119,7 +116,7 @@ public class PushDeviceServiceImpl extends BaseServiceImp<JyCeqPushDevice> imple
                return run(jyCeqPushDevice,request);
             }
         } catch (Exception e) {
-            ar.setFailMsg("信息发送失败！！");
+            ar.setFailMsg("信息发送失败！");
         }
         return ar;
     }
@@ -130,11 +127,35 @@ public class PushDeviceServiceImpl extends BaseServiceImp<JyCeqPushDevice> imple
      * @return
      */
     private void sendInfo(JyCeqPushDevice o){
+        int i=1;
         if(o.getUn_lock()!=null){
             PushUtil pushUtil=new PushUtil();
             pushUtil.PushTokenAndroid("您的保险柜被开锁了","在买一台吧！++++++++++","45bef9cc23674fff89eeefa7ad820a972d23c84d");
+            o.setUn_lock(o.getUn_lock()+i);
+            pushDeviceMapper.updateByPrimaryKey(o);
             System.out.println("OK");
         }
+        if(o.getHijack()!=null){
+            PushUtil pushUtil=new PushUtil();
+            pushUtil.PushTokenAndroid("您的保险柜被劫持了","需要报警了","45bef9cc23674fff89eeefa7ad820a972d23c84d");
+            o.setUn_lock(o.getHijack()+i);
+            pushDeviceMapper.updateByPrimaryKey(o);
+            System.out.println("OK");
+        }
+        if(o.getLowPower()!=null){
+            PushUtil pushUtil=new PushUtil();
+            pushUtil.PushTokenAndroid("您的保险柜电量太低了","需要充电了","45bef9cc23674fff89eeefa7ad820a972d23c84d");
+            o.setUn_lock(o.getLowPower()+i);
+            pushDeviceMapper.updateByPrimaryKey(o);
+            System.out.println("OK");
+        }
+       if(o.getWarning()!=null){
+           PushUtil pushUtil=new PushUtil();
+           pushUtil.PushTokenAndroid("您的保险柜发出警报","需要检查了","45bef9cc23674fff89eeefa7ad820a972d23c84d");
+           o.setUn_lock(o.getWarning()+i);
+           pushDeviceMapper.updateByPrimaryKey(o);
+           System.out.println("OK");
+       }
     }
 
 

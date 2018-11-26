@@ -42,25 +42,25 @@ public class DevicePushController extends BaseController<JyCeqPushDevice> {
 
     /**
      * 修改配置文件
-     * @param userCamera [email 、phone、open_id]
-     * @param userDevice   设备id标识  device_id    开锁消息	lockOnPush   警报消息	hijackPush 劫持消息	alarmPush 短讯消息	SMSPush
+     * @param u [email 、phone、open_id]
+     * @param d   设备id标识  device_id    开锁消息	lockOnPush   警报消息	hijackPush 劫持消息	alarmPush 短讯消息	SMSPush
      * @return {"res":1,"resMsg":"修改成功","obj":null}
      */
     @RequestMapping(value="editDeviceByDid",method = RequestMethod.POST)
     @ResponseBody
-    public AjaxRes updateLockOnPush(JyCeqUserCamera userCamera, JyCeqUserDevice userDevice) {
-        return   appDeviceService.updateLockOnPush(userCamera,userDevice);
+    public AjaxRes updateLockOnPush(JyCeqUserCamera u, JyCeqUserDevice d) {
+        return   appDeviceService.updateLockOnPush(u,d);
     }
 
     /**
      * 用户关联的设备信息
-     * @param userCamera phone email openid safeKeyValue
+     * @param o phone email openid safeKeyValue
      * @return {"res":14,"resMsg":"数据获取成功","obj":[{"hijackPush":1,"device_id":"HSL417206GCBHF","device_model":"CEQP1","powerLowPush":0,"description":"","admin_password":"","pushPlatform":"xg","pushToken":"3d72a1e063cffba94fcda8ad61fe26bf87a2611a","SMSPush":1,"device_name":"WIFICAM","alarmPush":1,"admin_name":"admin","lockOnPush":1}]}
      */
     @RequestMapping(value="findDeviceByKey", method=RequestMethod.POST)
     @ResponseBody
-    public DevRes findDeviceByKey(JyCeqUserCamera userCamera ){
-        return appUserService.findDeviceByKey(userCamera);
+    public DevRes findDeviceByKey(JyCeqUserCamera o ){
+        return appUserService.findDeviceByKey(o);
     }
 
 
@@ -90,26 +90,26 @@ public class DevicePushController extends BaseController<JyCeqPushDevice> {
 
     /**
      * 设备启动信息记录
-     * @param  jyCeqPushDevice 设备id  设备型号
+     * @param  o 设备id  设备型号
      * @param request 获取ip地址参数
      * @return {"res":1,"resMsg":"successfully","obj":null}
      */
     @RequestMapping(value="run", method=RequestMethod.GET)
     @ResponseBody
-    public AjaxRes run(JyCeqPushDevice jyCeqPushDevice, HttpServletRequest request){
-        return pushDeviceService.run(jyCeqPushDevice,request);
+    public AjaxRes run(JyCeqPushDevice o, HttpServletRequest request){
+        return pushDeviceService.run(o,request);
     }
 
     /**
      * 设备消息推送
-     * @param jyCeqPushDevice  device_id   device_model  or  [un_lock，hijack，warning，warning]
+     * @param o  device_id   device_model  or  [un_lock，hijack，warning，warning]
      * @param request 请求
      * @return   有待测试
      */
     @RequestMapping(value = "push",method = RequestMethod.POST)
     @ResponseBody
-    public AjaxRes  devicePush(JyCeqPushDevice jyCeqPushDevice, HttpServletRequest request){
-            return  pushDeviceService.devicePush(jyCeqPushDevice,request);
+    public AjaxRes  devicePush(JyCeqPushDevice o, HttpServletRequest request){
+            return  pushDeviceService.devicePush(o,request);
     }
 
 

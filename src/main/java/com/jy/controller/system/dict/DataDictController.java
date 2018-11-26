@@ -1,13 +1,12 @@
 package com.jy.controller.system.dict;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.jy.base.controller.BaseController;
+import com.jy.common.ajax.AjaxRes;
+import com.jy.common.mybatis.Page;
+import com.jy.common.utils.base.Const;
 import com.jy.common.utils.base.UuidUtil;
+import com.jy.entity.system.dict.DataDict;
+import com.jy.service.system.dict.DataDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.jy.common.ajax.AjaxRes;
-import com.jy.common.mybatis.Page;
-import com.jy.common.utils.base.Const;
-import com.jy.entity.system.dict.DataDict;
-import com.jy.service.system.dict.DataDictService;
+import java.util.*;
 /*
  * 数据字典
  */
@@ -162,6 +157,7 @@ public class DataDictController extends BaseController<DataDict> {
 			logger.error(e.toString(),e);
 			ar.setFailMsg(Const.DATA_FAIL);
 		}
+		System.out.println(ar.toString());
 		return ar;
 	}	
 }

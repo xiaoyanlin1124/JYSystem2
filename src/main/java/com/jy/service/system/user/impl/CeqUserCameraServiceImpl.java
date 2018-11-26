@@ -98,57 +98,56 @@ public class CeqUserCameraServiceImpl extends BaseServiceImp<JyCeqUserCamera> im
 
     /**
      * 用户注册页面，验证码获取
-     * @param userCamera  email  or  phone
+     * @param o  email  or  phone
      * @return
      */
     @Override
-    public DevRes findInfo(JyCeqUserCamera userCamera) {
+    public DevRes findInfo(JyCeqUserCamera o) {
         try {
             //判断用户输入email和phone是否合法
-            if( AccountValidatorUtil.isEmail(userCamera.getEmail()) || AccountValidatorUtil.isPhone(userCamera.getPhone()))
+            if( AccountValidatorUtil.isEmail(o.getEmail()) || AccountValidatorUtil.isPhone(o.getPhone()))
             {
-                List<JyCeqUserCamera> result = jyCeqUserCameraMapper.findemailphone(userCamera);
+                List<JyCeqUserCamera> result = jyCeqUserCameraMapper.findemailphone(o);
                 if (result.isEmpty()){
-                    List<JyCeqUserCamera> result2 = this.find(userCamera);
+                    List<JyCeqUserCamera> result2 = this.find(o);
                     if (result2.isEmpty()) {
-                        JyCeqUserCamera userCamera2 = sendSMS(userCamera);
+                        JyCeqUserCamera userCamera2 = sendSMS(o);
                         userCamera2.setId(UuidUtil.get32UUID());
                         userCamera2.setCreateTime(new Date());
                         this.insert(userCamera2);
-                    } else if ((new Date()).getTime() - result2.get(0).getVerification_send_Time().getTime() > SmsTool.verificationaInterval) {
-                        result2.get(0).setLanguage(userCamera.getLanguage());
+                    }
+                    if ((new Date()).getTime() - result2.get(0).getVerification_send_Time().getTime() > SmsTool.verificationaInterval) {
+                        result2.get(0).setLanguage(o.getLanguage());
                         JyCeqUserCamera userCamera2 = sendSMS(result2.get(0));
                         this.update(userCamera2);
                     }
-                    ar.setSucceedMsg(PushI18n.getI18nString(Const.sendsuccessful, userCamera.getLanguage()), Const.sendsuccessful_VALUE);
+                    ar.setSucceedMsg(PushI18n.getI18nString(Const.sendsuccessful, o.getLanguage()), Const.sendsuccessful_VALUE);
                 } else {
-                    ar.setFailMsg(PushI18n.getI18nString(Const.Registered, userCamera.getLanguage()), Const.Registered_VALUE);
+                    ar.setFailMsg(PushI18n.getI18nString(Const.Registered, o.getLanguage()), Const.Registered_VALUE);
                 }
             }
         } catch (Exception e) {
-            ar.setFailMsg( PushI18n.getI18nString( Const.sendFail , userCamera.getLanguage()),Const.sendFail_VALUE);
+            ar.setFailMsg( PushI18n.getI18nString( Const.sendFail , o.getLanguage()),Const.sendFail_VALUE);
         }
         return ar;
     }
 
     /**
      * 发送短信验证码
-     * @param userCamera
+     * @param o
      * @return
      */
     @Override
-    public JyCeqUserCamera sendSMS(JyCeqUserCamera userCamera) {
+    public JyCeqUserCamera sendSMS(JyCeqUserCamera o) {
         String verifier = SmsTool.verifierCode();
-        userCamera.setVerification_send_Time(new Date());
-        userCamera.setVerificationCode(verifier);
-        if (AccountValidatorUtil.isEmail(userCamera.getEmail())) {
-            SmsTool.snedMial(userCamera.getEmail(),
-                    userCamera.getLanguage() != null ? new Locale((String) userCamera.getLanguage().subSequence(0, 2), (String) userCamera.getLanguage().subSequence(3, 5)) : null, verifier);
+        o.setVerification_send_Time(new Date());
+        o.setVerificationCode(verifier);
+        if (AccountValidatorUtil.isEmail(o.getEmail())) {
+            SmsTool.snedMial(o.getEmail(),
+                    o.getLanguage() != null ? new Locale((String) o.getLanguage().subSequence(0, 2), (String) o.getLanguage().subSequence(3, 5)) : null, verifier);
         } else {
             try {
-                SmsTool.sendSms(userCamera.getPhone(),
-                        userCamera.getLanguage() != null ? new Locale((String) userCamera.getLanguage().subSequence(0, 2),
-                                (String) userCamera.getLanguage().subSequence(3, 5)) : null, verifier);
+                SmsTool.sendSms(o.getPhone(), o.getLanguage() != null ? new Locale((String) o.getLanguage().subSequence(0, 2), (String) o.getLanguage().subSequence(3, 5)) : null, verifier);
             } catch (ClientException e) {
                 e.printStackTrace();
             }
@@ -156,8 +155,8 @@ public class CeqUserCameraServiceImpl extends BaseServiceImp<JyCeqUserCamera> im
         Calendar Verification_Time = Calendar.getInstance();
         Verification_Time.setTimeInMillis((new Date()).getTime() + SmsTool.verificationTime);
         Date vdate = Verification_Time.getTime();
-        userCamera.setVerification_Time(vdate);
-        return userCamera;
+        o.setVerification_Time(vdate);
+        return o;
     }
 
     @Override
@@ -246,9 +245,9 @@ public class CeqUserCameraServiceImpl extends BaseServiceImp<JyCeqUserCamera> im
                 String[] chk =checkBox.split(",");
                 List<JyCeqUserCamera> list=new ArrayList<>();
                 for(String s:chk){
-                    JyCeqUserCamera userCamera=new JyCeqUserCamera();
-                    userCamera.setId(s);
-                    list.add(userCamera);
+                    JyCeqUserCamera o=new JyCeqUserCamera();
+                    o.setId(s);
+                    list.add(o);
                 }
                 this.deleteBatch(list);
                 ar.setSucceedMsg(Const.DEL_SUCCEED);

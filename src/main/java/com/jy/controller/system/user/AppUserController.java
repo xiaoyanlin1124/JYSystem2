@@ -32,37 +32,37 @@ public class AppUserController extends BaseController<JyCeqUserCamera> {
 
 	/**
 	 * 注册入口，发送验证码
-	 * @param userCamera  email  or  phone
+	 * @param o  email  or  phone
 	 * @return {"res":20,"resMsg":"Send successful","obj":null}
 	 */
 	@RequestMapping(value="reg", method=RequestMethod.POST)
 	@ResponseBody
-	public DevRes AppReg(JyCeqUserCamera userCamera) {
-		return userCameraService.findInfo(userCamera);
+	public DevRes AppReg(JyCeqUserCamera o) {
+		return userCameraService.findInfo(o);
 	}
 	
 	/**
 	 * 注册入口，验证码验证
-	 * @param userCamera  email  phone verificationCode(验证码数字)
+	 * @param o  email  phone verificationCode(验证码数字)
 	 * @return  {"res":26,"resMsg":"Register successfully","obj":null}
 	 */
 	@RequestMapping(value="regConfirm", method=RequestMethod.POST)
 	@ResponseBody
-	public DevRes AppRegConfirm(JyCeqUserCamera userCamera){
-		return appUserService.regConfirm(userCamera);
+	public DevRes AppRegConfirm(JyCeqUserCamera o){
+		return appUserService.regConfirm(o);
 	}
 
 
 	/**
 	 * APP登陆，可获得受权码，每次登陆受权码更新
-	 * @param userCamera email  phone   password
+	 * @param o email  phone   password
 	 * @param request  请求方式
 	 * @return {"res":28,"resMsg":"loginSuccess","obj":{"email":"1013347382@qq.com","phone":null,"openid":null,"nickname":"CEQ_74274741","safe_key_value":"a2ac3f9cbb23461383de1d63c9e18562","name":null}}
 	 */
 	@RequestMapping(value={"login","checkLogin"}, method=RequestMethod.POST)
 	@ResponseBody
-	public DevRes AppLoginConfirm(JyCeqUserCamera userCamera,HttpServletRequest request){
-		return appUserService.AppLoginConfirm(userCamera,request);
+	public DevRes AppLoginConfirm(JyCeqUserCamera o,HttpServletRequest request){
+		return appUserService.AppLoginConfirm(o,request);
 	}
 
 
@@ -71,38 +71,38 @@ public class AppUserController extends BaseController<JyCeqUserCamera> {
 	 * 查找第三方登陆写入信息，支持facebook QQ 微信
 	 * POST发送数据
 	 * 参数 openid access_token nickname access_type language safe_key_value
-	 * @param userCamera  用户实体
+	 * @param o  用户实体
 	 * @return {"res":1,"resMsg":"保存成功","obj":null}
 	 */
 	@RequestMapping(value="thirdLogin", method=RequestMethod.POST)
 	@ResponseBody
-	public DevRes ThirdLogin(JyCeqUserCamera userCamera ){
-		return appUserService.ThirdLogin(userCamera);
+	public DevRes ThirdLogin(JyCeqUserCamera o ){
+		return appUserService.ThirdLogin(o);
 	}
 
 
 
 	/**
 	 * 通过手机号或者邮箱修改密码
-	 * @param userCamera  手机号  原密码  新密码    邮箱     验证码   openid
+	 * @param o  手机号  原密码  新密码    邮箱     验证码   openid
 	 * @return  {"res":13,"resMsg":"修改成功","obj":null}
 	 */
 	@RequestMapping(value = "forgetPassword",method = RequestMethod.POST)
 	@ResponseBody
-	public DevRes forgetPassword(JyCeqUserCamera userCamera){
-		return appUserService.forgetPassword(userCamera);
+	public DevRes forgetPassword(JyCeqUserCamera o){
+		return appUserService.forgetPassword(o);
 	}
 
 
 	/**
 	 * 通过邮箱或者手机号获取验证码，并且更新数据库
-	 * @param userCamera  email  or   phone
+	 * @param o  email  or   phone
 	 * @return {"res":1,"resMsg":"发送成功","obj":"sendsuccessful"}
 	 */
 	@RequestMapping(value = "sendVerificationCode",method = RequestMethod.POST)
 	@ResponseBody
-	public DevRes sendVerificationCode(JyCeqUserCamera userCamera){
-		return appUserService.sendVerificationCode(userCamera);
+	public DevRes sendVerificationCode(JyCeqUserCamera o){
+		return appUserService.sendVerificationCode(o);
 	}
 
 }

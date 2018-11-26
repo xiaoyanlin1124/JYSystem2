@@ -14,7 +14,6 @@ import com.jy.entity.system.device.JyCeqUserDeviceExample;
 import com.jy.entity.system.user.UserDeviceApp;
 import com.jy.mapper.system.device.JyCeqUserDeviceMapper;
 import com.jy.service.system.user.AppUserService;
-import com.jy.service.system.user.CeqUserCameraService;
 import com.jy.service.system.user.CeqUserDeviceService;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +42,6 @@ public class CeqUserDeviceServiceImpl extends BaseServiceImp<JyCeqUserDevice> im
     @Resource
     private AppUserService appUserService;
 
-    @Resource
-    private CeqUserCameraService cameraService;
 
     @Resource
     private CeqUserDeviceService deviceService;

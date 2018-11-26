@@ -18,11 +18,11 @@ public interface AppDeviceService extends BaseService<JyCeqUserDevice> {
 
     /**
      * 推送功能
-     * @param  userCamera emailOrPhone email或者phone
-     * @param  userDevice device_id 设备名称   lockOnPush  1：推送   0：不推送
+     * @param  o emailOrPhone email或者phone
+     * @param  d device_id 设备名称   lockOnPush  1：推送   0：不推送
      * @return {"res":1,"resMsg":"修改成功","obj":null}
      */
-     AjaxRes updateLockOnPush(JyCeqUserCamera userCamera,JyCeqUserDevice userDevice);
+     AjaxRes updateLockOnPush(JyCeqUserCamera o,JyCeqUserDevice d);
 
     /**
      * 用户App端删除设备
@@ -33,7 +33,7 @@ public interface AppDeviceService extends BaseService<JyCeqUserDevice> {
 
     /**
      * 用户app添加设备
-     * @param u
+     * @param 
      * @param d
      * @return
      */
